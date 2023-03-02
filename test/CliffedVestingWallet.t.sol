@@ -145,7 +145,9 @@ contract CliffedVestingWalletTest is Test {
     function testTokenReentrancy() public {
         uint amount = 1e20;
         CliffedVestingWallet wallet = CliffedVestingWallet(createWallet(address(this), 1677517796, 1677517796 + (86400*20), 1677517796 + (86400*100)));
-        CallbackTestToken token = new CallbackTestToken(address(wallet));
+        
+        // pre-transfer callback
+        PreTransferCallbackTestToken token = new PreTransferCallbackTestToken(address(wallet));
         token.balanceOf(address(this));
         token.setState(1); // disable the callback
         token.transfer(address(wallet), amount);
@@ -155,5 +157,17 @@ contract CliffedVestingWalletTest is Test {
         vm.warp(time);
         vm.expectRevert("ReentrancyGuard: reentrant call");
         wallet.release(address(token)); // This will trigger release twice
+        
+        // post-transfer callback
+        PostTransferCallbackTestToken token2 = new PostTransferCallbackTestToken(address(wallet));
+        token2.balanceOf(address(this));
+        token2.setState(1); // disable the callback
+        token2.transfer(address(wallet), amount);
+        token2.transfer(address(1), token.balanceOf(address(this))); //remove any extra
+        token2.setState(0);
+        time = 1677517796 + (86400*25); // after the cliff, within the vesting schedule
+        vm.warp(time);
+        vm.expectRevert("ReentrancyGuard: reentrant call");
+        wallet.release(address(token2)); // This will trigger release twice
     }
 }
