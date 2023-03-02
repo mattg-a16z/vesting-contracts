@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "openzeppelin-contracts/finance/VestingWallet.sol";
+import "openzeppelin-contracts/security/ReentrancyGuard.sol";
 
-contract CliffedVestingWallet is VestingWallet {
+contract CliffedVestingWallet is VestingWallet, ReentrancyGuard {
 
     uint64 private immutable _cliff;
 
@@ -16,12 +17,12 @@ contract CliffedVestingWallet is VestingWallet {
         return _cliff;
     }
 
-    function release() public override {
+    function release() public override nonReentrant {
         require(cliff() <= block.timestamp, "CliffedVestingWallet: cannot release until the cliff");
         super.release();
     }
 
-    function release(address token) public override {
+    function release(address token) public override nonReentrant {
         require(cliff() <= block.timestamp, "CliffedVestingWallet: cannot release until the cliff");
         super.release(token);
     }
