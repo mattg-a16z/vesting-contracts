@@ -1,3 +1,5 @@
+pragma solidity ^0.8.17;
+
 contract TestToken {
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowances;
@@ -24,7 +26,7 @@ contract TestToken {
         balances[to] += amount;
     }
 
-    function balanceOf(address addr) public returns (uint) {
+    function balanceOf(address addr) public view returns (uint) {
         return balances[addr];
     }
 

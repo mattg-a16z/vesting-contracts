@@ -10,7 +10,7 @@ contract CliffedVestingWalletTest is Test {
         return new CliffedVestingWallet(beneficiary, start, cliff, duration);
     }
 
-    function expectedVestAmount(uint amount, uint64 start, uint64 duration, uint64 time) internal returns (uint) {
+    function expectedVestAmount(uint amount, uint64 start, uint64 duration, uint64 time) internal pure returns (uint) {
         if (time > start + duration) return amount;
         else if (start > time) return 0;
         else return amount * (time - start) / duration;
