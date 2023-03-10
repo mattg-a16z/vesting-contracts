@@ -4,8 +4,8 @@ contract TestToken {
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowances;
 
-    constructor() {
-        balances[msg.sender] = 1e24;
+    constructor(uint256 amount) {
+        balances[msg.sender] = amount;
     }
 
     function approve(address spender, uint amount) external {
