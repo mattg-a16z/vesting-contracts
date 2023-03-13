@@ -50,7 +50,6 @@ contract ContinuousCliffedVestingWalletTest is Test {
                 assertEq(wallet.released(addressToken), 0);
             } else if (i < start+duration) {
                 uint256 expected = (i - start) * amount / duration;
-                console.log(i);
                 assertEq(token.balanceOf(beneficiary), expected);
                 assertEq(wallet.released(addressToken), expected);
             } else {

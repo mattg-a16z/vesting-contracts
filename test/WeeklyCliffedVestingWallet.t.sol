@@ -47,7 +47,6 @@ contract ContinuousCliffedVestingWalletTest is Test {
         uint256 cliffSeconds = 604800 * cliff;
         for (uint i=subOrZero(start, durationSeconds); i<start+2*durationSeconds; i+=durationSeconds/30+1) {
             vm.warp(i);
-            console.log(i);
             wallet.release(addressToken);
             if (i < start+cliffSeconds) {
                 assertEq(token.balanceOf(beneficiary), 0);
