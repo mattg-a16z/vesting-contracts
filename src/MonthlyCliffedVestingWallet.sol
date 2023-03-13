@@ -20,7 +20,7 @@ contract MonthlyCliffedVestingWallet is DiscreteCliffedVestingWallet, UnixDaysTo
         cliffMonths
     ) {}
     
-    function _timeUnitsElapsed(uint64 timestamp) public view override returns (uint256) {
+    function _timeUnitsElapsed(uint64 timestamp) internal view override returns (uint256) {
         unchecked {
             if (timestamp < start()) {
                 return 0;

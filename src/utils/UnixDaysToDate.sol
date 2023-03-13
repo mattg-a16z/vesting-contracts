@@ -6,7 +6,7 @@ contract UnixDaysToDate {
     /**
      * Uses Fliegel and van Flandern algorithm for converting from timestamp to date
      */
-    function _daysToDate(uint64 _days) public pure returns(uint256 _year, uint256 _month, uint256 _day) {
+    function _daysToDate(uint64 _days) internal pure returns(uint256 _year, uint256 _month, uint256 _day) {
         unchecked {
             uint256 L = _days + 68569 + 2440588; // Convert to march 1 4800 BCE
             uint256 N = (4 * L) / 146097; // 4 * number of 400 year cycles

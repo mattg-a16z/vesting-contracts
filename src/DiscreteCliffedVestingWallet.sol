@@ -48,5 +48,5 @@ abstract contract DiscreteCliffedVestingWallet is VestingWallet, ReentrancyGuard
         }
     }
 
-    function _timeUnitsElapsed(uint64 timestamp) public virtual view returns (uint256);
+    function _timeUnitsElapsed(uint64 timestamp) internal virtual view returns (uint256);
 }
