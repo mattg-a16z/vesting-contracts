@@ -83,7 +83,7 @@ contract MonthlyCliffedVestingWalletTest is Test {
 
         // Assumptions - mostly bounding because forge assumes will eventually cause the test to fail
         vm.assume(beneficiary != address(0));
-        // Feb 27 2003 to Feb 27 2043
+        // Feb 27 2003 to Feb 27 2403
         start = uint64(bound(start, 1677517796 - (86400 * 365 * 20), 1677517796 + (86400 * 365 * 400)));
         // Between 6 months and 100 years
         duration = uint64(bound(duration, 6, 1200));
@@ -105,7 +105,6 @@ contract MonthlyCliffedVestingWalletTest is Test {
             if (i >= start) {
                 expectedElapsed = monthsElapsed(); 
             } 
-            console.log("test");
             wallet.release(address(token));
             if (expectedElapsed < cliff) {
                 assertEq(token.balanceOf(beneficiary), 0);

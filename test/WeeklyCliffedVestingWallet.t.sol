@@ -29,7 +29,7 @@ contract ContinuousCliffedVestingWalletTest is Test {
 
         // Assumptions - mostly bounding because forge assumes will eventually cause the test to fail
         vm.assume(beneficiary != address(0));
-        // Feb 27 2003 to Feb 27 2043
+        // Feb 27 2003 to Feb 27 2403
         start = uint64(bound(start, 1677517796 - (86400 * 365 * 20), 1677517796 + (86400 * 365 * 400)));
         // Between 1 week and 50 years
         duration = uint64(bound(duration, 1, 50*52));
