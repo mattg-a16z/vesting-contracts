@@ -41,8 +41,6 @@ contract ContinuousCliffedVestingWalletTest is Test {
         DiscreteCliffedVestingWallet wallet = createWallet(beneficiary, start, cliff, duration);
         token.transfer(address(wallet), amount);
 
-        console.log("test");
-
         uint256 durationSeconds = 604800 * duration;
         uint256 cliffSeconds = 604800 * cliff;
         for (uint i=subOrZero(start, durationSeconds); i<start+2*durationSeconds; i+=durationSeconds/30+1) {
