@@ -12,7 +12,7 @@ contract UnixDaysToDate {
             uint256 N = (4 * L) / 146097; // 4 * number of 400 year cycles
             L = L - (146097 * N + 3) / 4; // subtract out the 400 year cycles (rounding up)
             _year = (4000 * (L+1)) / 1461001; // number of leap years (days / 1461.001)
-            L = L - (1461 * _year) / 4 + 31; // subtract out the leap years
+            L = L - (1461 * _year) / 4 + 31; // subtract out the leap years add 31 (for month/day calculations)
             _month = (80 * L) / 2447; // Get month by dividing by 30.5875
             _day = L - (2447 * _month) / 80; // Remove months to get remaining days
             L = _month / 11; // Check if the month wraps around (11 is Jan, 12 is Feb)
